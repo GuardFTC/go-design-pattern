@@ -6,6 +6,7 @@ import (
 	"degisn-pettern/create/factory"
 	"degisn-pettern/create/prototype"
 	"degisn-pettern/create/singleton"
+	"degisn-pettern/structural/decorator"
 	"fmt"
 )
 
@@ -22,6 +23,24 @@ func main() {
 
 	//4.原型模式测试
 	//prototypeTest()
+
+	//5.装饰器模式测试
+
+	//1.创建基础房间
+	room := decorator.NewBaseRoom()
+	fmt.Printf("base room: %+v\n", room.Show())
+
+	//2.创建带门房间
+	doorRoom := decorator.NewDoorRoomDecorator(room)
+	fmt.Printf("door room: %+v\n", doorRoom.Show())
+
+	//3.创建带窗格房间
+	windowRoom := decorator.NewWindowRoomDecorator(room)
+	fmt.Printf("window room: %+v\n", windowRoom.Show())
+
+	//4.创建带门窗格房间
+	doorWindowRoom := decorator.NewWindowRoomDecorator(doorRoom)
+	fmt.Printf("door window room: %+v\n", doorWindowRoom.Show())
 }
 
 // 单例模式测试

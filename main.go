@@ -2,10 +2,10 @@
 package main
 
 import (
-	"degisn-pettern/builder"
-	"degisn-pettern/factory"
-	"degisn-pettern/prototype"
-	"degisn-pettern/singleton"
+	"degisn-pettern/create/builder"
+	"degisn-pettern/create/factory"
+	"degisn-pettern/create/prototype"
+	"degisn-pettern/create/singleton"
 	"fmt"
 )
 
@@ -21,7 +21,7 @@ func main() {
 	//builderTest()
 
 	//4.原型模式测试
-	prototypeTest()
+	//prototypeTest()
 }
 
 // 单例模式测试

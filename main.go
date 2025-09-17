@@ -4,6 +4,7 @@ package main
 import (
 	"degisn-pettern/builder"
 	"degisn-pettern/factory"
+	"degisn-pettern/prototype"
 	"degisn-pettern/singleton"
 	"fmt"
 )
@@ -17,7 +18,10 @@ func main() {
 	//factoryPatternTest()
 
 	//3.建造者模式测试
-	builderTest()
+	//builderTest()
+
+	//4.原型模式测试
+	prototypeTest()
 }
 
 // 单例模式测试
@@ -79,4 +83,27 @@ func builderTest() {
 
 	//2.输出信息
 	fmt.Printf("testStruct: %+v\n", testStruct)
+}
+
+// 原型模式测试
+func prototypeTest() {
+
+	//1.创建结构体
+	people := &prototype.People{
+		Name: "test",
+		Ids:  []int{1, 2, 3},
+		Age:  18,
+	}
+
+	//2.克隆
+	people2 := people.Clone().(*prototype.People)
+
+	//3.输出结构体信息
+	fmt.Printf("people: %+v\npeople2: %+v\n", people, people2)
+
+	//4.内存地址比较
+	fmt.Printf("people == people2: %t\n", people == people2)
+
+	//5.切片属性内存地址比较
+	fmt.Printf("people.Ids address %p\npeople2.Ids address %p\n", people.Ids, people2.Ids)
 }

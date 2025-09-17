@@ -2,6 +2,7 @@
 package main
 
 import (
+	"degisn-pettern/factory"
 	"degisn-pettern/singleton"
 	"fmt"
 )
@@ -9,6 +10,14 @@ import (
 func main() {
 
 	//1.单例模式测试
+	//singletonPetternTest()
+
+	//2.工厂模式测试
+	factoryPatternTest()
+}
+
+// 单例模式测试
+func singletonPetternTest() {
 
 	//1.获取懒汉式实例
 	lazy := singleton.GetInstanceLazy()
@@ -27,4 +36,28 @@ func main() {
 	eager2 := singleton.GetInstanceEager()
 	fmt.Printf("eager address: %p\neager2 address: %p\n", eager, eager2)
 	fmt.Printf("eager == eager2: %t\n", eager == eager2)
+}
+
+// 工厂模式测试
+func factoryPatternTest() {
+
+	//1.简单工厂模式
+	simpleFactory := new(factory.ProductSimpleFactory)
+	product1 := simpleFactory.GetProduct(1)
+	fmt.Printf("product1 name: %s\n", product1.GetName())
+	product2 := simpleFactory.GetProduct(2)
+	fmt.Printf("product2 name: %s\n", product2.GetName())
+	product3 := simpleFactory.GetProduct(3)
+	fmt.Printf("product3 name: %s\n", product3.GetName())
+
+	//2.工厂方法模式
+	factory1 := new(factory.ProductFactory1)
+	product1 = factory1.CreateProduct()
+	fmt.Printf("product1 name: %s\n", product1.GetName())
+	factory2 := new(factory.ProductFactory2)
+	product2 = factory2.CreateProduct()
+	fmt.Printf("product2 name: %s\n", product2.GetName())
+	factory3 := new(factory.ProductFactory3)
+	product3 = factory3.CreateProduct()
+	fmt.Printf("product3 name: %s\n", product3.GetName())
 }

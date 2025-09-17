@@ -2,6 +2,7 @@
 package main
 
 import (
+	"degisn-pettern/builder"
 	"degisn-pettern/factory"
 	"degisn-pettern/singleton"
 	"fmt"
@@ -13,7 +14,10 @@ func main() {
 	//singletonPetternTest()
 
 	//2.工厂模式测试
-	factoryPatternTest()
+	//factoryPatternTest()
+
+	//3.建造者模式测试
+	builderTest()
 }
 
 // 单例模式测试
@@ -60,4 +64,19 @@ func factoryPatternTest() {
 	factory3 := new(factory.ProductFactory3)
 	product3 = factory3.CreateProduct()
 	fmt.Printf("product3 name: %s\n", product3.GetName())
+}
+
+// 建造者模式测试
+func builderTest() {
+
+	//1.通过链式调用创建结构体对象
+	testStruct := builder.NewTestStructBuilder().
+		SetId(1).
+		SetName("test").
+		SetAge(18).
+		SetSex("male").
+		Build()
+
+	//2.输出信息
+	fmt.Printf("testStruct: %+v\n", testStruct)
 }

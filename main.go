@@ -8,6 +8,7 @@ import (
 	"degisn-pettern/create/singleton"
 	"degisn-pettern/structural/adapter"
 	"degisn-pettern/structural/decorator"
+	"degisn-pettern/structural/proxy"
 	"fmt"
 )
 
@@ -30,6 +31,22 @@ func main() {
 
 	//6.适配器模式测试
 	//adapterTest()
+
+	//7.代理模式测试
+
+	//1.创建明星
+	readStar := proxy.RealStar{Name: "ftc"}
+
+	//2.创建经纪人代理
+	agent := proxy.Agent{
+		Star: &readStar,
+	}
+
+	//3.唱歌
+	agent.Sing()
+
+	//4.商业活动
+	agent.Businesses()
 }
 
 // 单例模式测试

@@ -6,6 +6,7 @@ import (
 	"degisn-pettern/create/factory"
 	"degisn-pettern/create/prototype"
 	"degisn-pettern/create/singleton"
+	"degisn-pettern/structural/adapter"
 	"degisn-pettern/structural/decorator"
 	"fmt"
 )
@@ -25,22 +26,10 @@ func main() {
 	//prototypeTest()
 
 	//5.装饰器模式测试
+	//decoratorTest()
 
-	//1.创建基础房间
-	room := decorator.NewBaseRoom()
-	fmt.Printf("base room: %+v\n", room.Show())
-
-	//2.创建带门房间
-	doorRoom := decorator.NewDoorRoomDecorator(room)
-	fmt.Printf("door room: %+v\n", doorRoom.Show())
-
-	//3.创建带窗格房间
-	windowRoom := decorator.NewWindowRoomDecorator(room)
-	fmt.Printf("window room: %+v\n", windowRoom.Show())
-
-	//4.创建带门窗格房间
-	doorWindowRoom := decorator.NewWindowRoomDecorator(doorRoom)
-	fmt.Printf("door window room: %+v\n", doorWindowRoom.Show())
+	//6.适配器模式测试
+	//adapterTest()
 }
 
 // 单例模式测试
@@ -125,4 +114,37 @@ func prototypeTest() {
 
 	//5.切片属性内存地址比较
 	fmt.Printf("people.Ids address %p\npeople2.Ids address %p\n", people.Ids, people2.Ids)
+}
+
+// 装饰器模式测试
+func decoratorTest() {
+
+	//1.创建基础房间
+	room := decorator.NewBaseRoom()
+	fmt.Printf("base room: %+v\n", room.Show())
+
+	//2.创建带门房间
+	doorRoom := decorator.NewDoorRoomDecorator(room)
+	fmt.Printf("door room: %+v\n", doorRoom.Show())
+
+	//3.创建带窗格房间
+	windowRoom := decorator.NewWindowRoomDecorator(room)
+	fmt.Printf("window room: %+v\n", windowRoom.Show())
+
+	//4.创建带门窗格房间
+	doorWindowRoom := decorator.NewWindowRoomDecorator(doorRoom)
+	fmt.Printf("door window room: %+v\n", doorWindowRoom.Show())
+}
+
+// 适配器模式测试
+func adapterTest() {
+
+	//1.创建中国发电机
+	chineseGenerator := adapter.ChineseGenerator{}
+	fmt.Printf("chinese generator voltage: %d\n", chineseGenerator.GetVoltage220v())
+
+	//2.创建发电机适配器
+	voltageAdapter := new(adapter.VoltageAdapter)
+	voltageAdapter.ChineseGenerator = chineseGenerator
+	fmt.Printf("voltageAdapter voltage: %d\n", voltageAdapter.GetVoltage110v())
 }

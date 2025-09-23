@@ -41,7 +41,7 @@ func main() {
 	//bridgeTest()
 
 	//9.外观模式测试
-	facadeTest()
+	//facadeTest()
 }
 
 // 单例模式测试

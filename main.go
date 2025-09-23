@@ -7,6 +7,7 @@ import (
 	"degisn-pettern/create/prototype"
 	"degisn-pettern/create/singleton"
 	"degisn-pettern/structural/adapter"
+	"degisn-pettern/structural/bridge"
 	"degisn-pettern/structural/decorator"
 	"degisn-pettern/structural/proxy"
 	"fmt"
@@ -33,20 +34,10 @@ func main() {
 	//adapterTest()
 
 	//7.代理模式测试
+	//proxyTest()
 
-	//1.创建明星
-	readStar := proxy.RealStar{Name: "ftc"}
-
-	//2.创建经纪人代理
-	agent := proxy.Agent{
-		Star: &readStar,
-	}
-
-	//3.唱歌
-	agent.Sing()
-
-	//4.商业活动
-	agent.Businesses()
+	//8.桥接模式测试
+	//bridgeTest()
 }
 
 // 单例模式测试
@@ -164,4 +155,45 @@ func adapterTest() {
 	voltageAdapter := new(adapter.VoltageAdapter)
 	voltageAdapter.ChineseGenerator = chineseGenerator
 	fmt.Printf("voltageAdapter voltage: %d\n", voltageAdapter.GetVoltage110v())
+}
+
+// 代理模式测试
+func proxyTest() {
+
+	//1.创建明星
+	readStar := proxy.RealStar{Name: "ftc"}
+
+	//2.创建经纪人代理
+	agent := proxy.Agent{
+		Star: &readStar,
+	}
+
+	//3.唱歌
+	agent.Sing()
+
+	//4.商业活动
+	agent.Businesses()
+}
+
+// 桥接模式测试
+func bridgeTest() {
+
+	//1.创建颜色
+	blue := new(bridge.Blue)
+	green := new(bridge.Green)
+	red := new(bridge.Red)
+
+	//2.创建图形，桥接颜色
+	circle := bridge.NewCircle(blue)
+	square := bridge.NewSquare(green)
+	rectangle := bridge.NewRectangle(red)
+
+	//3.展示
+	circle.Show()
+	square.Show()
+	rectangle.Show()
+	rectangle.SetColor(blue)
+	rectangle.Show()
+	rectangle.SetColor(green)
+	rectangle.Show()
 }

@@ -8,6 +8,7 @@ import (
 	"degisn-pettern/create/singleton"
 	"degisn-pettern/structural/adapter"
 	"degisn-pettern/structural/bridge"
+	"degisn-pettern/structural/composite"
 	"degisn-pettern/structural/decorator"
 	"degisn-pettern/structural/facade"
 	"degisn-pettern/structural/proxy"
@@ -42,6 +43,9 @@ func main() {
 
 	//9.外观模式测试
 	//facadeTest()
+
+	//10.组合模式测试
+	//compositeTest()
 }
 
 // 单例模式测试
@@ -219,4 +223,28 @@ func facadeTest() {
 
 	//5.测试离家模式
 	smartHome.LeaveHomeMode()
+}
+
+// 组合模式测试
+func compositeTest() {
+
+	//1.创建1级组件
+	level11 := &composite.Level1{Name: "1级组件-1"}
+	level12 := &composite.Level1{Name: "1级组件-2"}
+
+	//2.创建2级组件
+	components := make([]composite.Component, 0)
+	components = append(components, level11)
+	components = append(components, level12)
+
+	level21 := &composite.Level2{Name: "2级组件-1", Children: components}
+
+	//3.创建3级组件
+	components = make([]composite.Component, 0)
+	components = append(components, level21)
+
+	level31 := &composite.Level3{Name: "3级组件-1", Children: components}
+
+	//4.3级组件展示细节
+	level31.ShowDetail()
 }

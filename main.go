@@ -9,6 +9,7 @@ import (
 	"degisn-pettern/structural/adapter"
 	"degisn-pettern/structural/bridge"
 	"degisn-pettern/structural/decorator"
+	"degisn-pettern/structural/facade"
 	"degisn-pettern/structural/proxy"
 	"fmt"
 )
@@ -38,6 +39,9 @@ func main() {
 
 	//8.桥接模式测试
 	//bridgeTest()
+
+	//9.外观模式测试
+	facadeTest()
 }
 
 // 单例模式测试
@@ -196,4 +200,23 @@ func bridgeTest() {
 	rectangle.Show()
 	rectangle.SetColor(green)
 	rectangle.Show()
+}
+
+// 外观模式测试
+func facadeTest() {
+
+	//1.创建智能家居控制器
+	smartHome := facade.NewSmartHomeFacade()
+
+	//2.测试起床模式
+	smartHome.WakeUpMode()
+
+	//3.测试聚会模式
+	smartHome.PartyMode()
+
+	//4.测试睡眠模式
+	smartHome.SleepMode()
+
+	//5.测试离家模式
+	smartHome.LeaveHomeMode()
 }

@@ -1,4 +1,4 @@
-// Package structural @Author:冯铁城 [17615007230@163.com] 2025-09-17 15:43:26
+// Package decorator @Author:冯铁城 [17615007230@163.com] 2025-09-17 15:43:26
 package decorator
 
 // IRoom 抽象房间接口

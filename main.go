@@ -11,6 +11,7 @@ import (
 	"degisn-pettern/structural/composite"
 	"degisn-pettern/structural/decorator"
 	"degisn-pettern/structural/facade"
+	"degisn-pettern/structural/flyweight"
 	"degisn-pettern/structural/proxy"
 	"fmt"
 )
@@ -46,6 +47,9 @@ func main() {
 
 	//10.组合模式测试
 	//compositeTest()
+
+	//11.享元模式测试
+	//flyweightTest()
 }
 
 // 单例模式测试
@@ -247,4 +251,23 @@ func compositeTest() {
 
 	//4.3级组件展示细节
 	level31.ShowDetail()
+}
+
+// 组合模式测试
+func flyweightTest() {
+
+	//1.获取棋子工厂(享元工厂)
+	chessPieceFactory := flyweight.NewChessPieceFactory()
+
+	//2.创建一批黑色棋子
+	blackChessPiece := chessPieceFactory.GetChessPieceByColor("black")
+	blackChessPiece.ShowCoordinates(flyweight.ChessPieceContext{X: 1, Y: 1})
+	blackChessPiece.ShowCoordinates(flyweight.ChessPieceContext{X: 2, Y: 2})
+	blackChessPiece.ShowCoordinates(flyweight.ChessPieceContext{X: 3, Y: 3})
+
+	//3.创建一批白色棋子
+	whiteChessPiece := chessPieceFactory.GetChessPieceByColor("white")
+	whiteChessPiece.ShowCoordinates(flyweight.ChessPieceContext{X: 4, Y: 4})
+	whiteChessPiece.ShowCoordinates(flyweight.ChessPieceContext{X: 5, Y: 5})
+	whiteChessPiece.ShowCoordinates(flyweight.ChessPieceContext{X: 6, Y: 6})
 }

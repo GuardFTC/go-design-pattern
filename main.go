@@ -2,6 +2,7 @@
 package main
 
 import (
+	"degisn-pettern/behaivor/status"
 	"degisn-pettern/behaivor/strategy"
 	"degisn-pettern/create/builder"
 	"degisn-pettern/create/factory"
@@ -57,6 +58,9 @@ func main() {
 	//------------------------------------------行为型-------------------------------------------------//
 	//12.策略模式测试
 	//strategyTest()
+
+	//13.状态模式测试
+	//statusTest()
 }
 
 // 单例模式测试
@@ -298,4 +302,22 @@ func strategyTest() {
 	//4.调整为满减模式
 	productPriceContext.SetIProductPrice(fullReductionPrice)
 	fmt.Printf("当前商品价格: %+v\n", productPriceContext.GetProductPrice())
+}
+
+// 状态模式测试
+func statusTest() {
+
+	//1.创建初始状态
+	orderCreated := status.NewOrderCreated()
+
+	//2.创建状态上下文结构体
+	orderStatusContext := status.NewOrderStatusContext(orderCreated)
+
+	//3.获取订单状态
+	fmt.Printf("order status: %s\n", orderStatusContext.GetCurrentStatusAndProcessNext(orderStatusContext))
+	fmt.Printf("order status: %s\n", orderStatusContext.GetCurrentStatusAndProcessNext(orderStatusContext))
+	fmt.Printf("order status: %s\n", orderStatusContext.GetCurrentStatusAndProcessNext(orderStatusContext))
+	fmt.Printf("order status: %s\n", orderStatusContext.GetCurrentStatusAndProcessNext(orderStatusContext))
+	fmt.Printf("order status: %s\n", orderStatusContext.GetCurrentStatusAndProcessNext(orderStatusContext))
+	fmt.Printf("order status: %s\n", orderStatusContext.GetCurrentStatusAndProcessNext(orderStatusContext))
 }

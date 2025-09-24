@@ -2,6 +2,7 @@
 package main
 
 import (
+	"degisn-pettern/behaivor/command"
 	"degisn-pettern/behaivor/status"
 	"degisn-pettern/behaivor/strategy"
 	"degisn-pettern/create/builder"
@@ -61,6 +62,9 @@ func main() {
 
 	//13.状态模式测试
 	//statusTest()
+
+	//14.命令模式测试、
+	//commandTest()
 }
 
 // 单例模式测试
@@ -320,4 +324,32 @@ func statusTest() {
 	fmt.Printf("order status: %s\n", orderStatusContext.GetCurrentStatusAndProcessNext(orderStatusContext))
 	fmt.Printf("order status: %s\n", orderStatusContext.GetCurrentStatusAndProcessNext(orderStatusContext))
 	fmt.Printf("order status: %s\n", orderStatusContext.GetCurrentStatusAndProcessNext(orderStatusContext))
+}
+
+// 命令模式测试
+func commandTest() {
+
+	//1.创建士兵
+	soldier1 := command.NewSoldier("马冬梅")
+	soldier2 := command.NewSoldier("夏洛")
+
+	//2.创建命令
+	walkCommand1 := command.NewWalkCommand(soldier1)
+	runCommand1 := command.NewRunCommand(soldier1)
+	runCommand12 := command.NewRunCommand(soldier1)
+	attackCommand1 := command.NewAttentionCommand(soldier1)
+
+	walkCommand2 := command.NewWalkCommand(soldier2)
+	runCommand2 := command.NewRunCommand(soldier2)
+	runCommand22 := command.NewRunCommand(soldier2)
+	attackCommand2 := command.NewAttentionCommand(soldier2)
+
+	//3.存入切片
+	commands := []command.Command{walkCommand1, runCommand1, runCommand12, attackCommand1, walkCommand2, runCommand2, runCommand22, attackCommand2}
+
+	//4.创建长官
+	commander := command.NewCommander(commands)
+
+	//5.执行命令
+	commander.ExecuteCommands()
 }

@@ -2,6 +2,7 @@
 package main
 
 import (
+	"degisn-pettern/behaivor/strategy"
 	"degisn-pettern/create/builder"
 	"degisn-pettern/create/factory"
 	"degisn-pettern/create/prototype"
@@ -18,6 +19,7 @@ import (
 
 func main() {
 
+	//------------------------------------------创建型-------------------------------------------------//
 	//1.单例模式测试
 	//singletonPetternTest()
 
@@ -30,6 +32,7 @@ func main() {
 	//4.原型模式测试
 	//prototypeTest()
 
+	//------------------------------------------结构型-------------------------------------------------//
 	//5.装饰器模式测试
 	//decoratorTest()
 
@@ -50,6 +53,10 @@ func main() {
 
 	//11.享元模式测试
 	//flyweightTest()
+
+	//------------------------------------------行为型-------------------------------------------------//
+	//12.策略模式测试
+	strategyTest()
 }
 
 // 单例模式测试
@@ -270,4 +277,25 @@ func flyweightTest() {
 	whiteChessPiece.ShowCoordinates(flyweight.ChessPieceContext{X: 4, Y: 4})
 	whiteChessPiece.ShowCoordinates(flyweight.ChessPieceContext{X: 5, Y: 5})
 	whiteChessPiece.ShowCoordinates(flyweight.ChessPieceContext{X: 6, Y: 6})
+}
+
+// 策略模式测试
+func strategyTest() {
+
+	//1.创建3种获取价格接口
+	originalPrice := strategy.NewOriginalPrice()
+	discountPrice := strategy.NewDiscountPrice(0.8)
+	fullReductionPrice := strategy.NewFullReductionStrategy(100, 30)
+
+	//2.创建价格上下文结构体，初始策略为原价
+	productPriceContext := strategy.NewProductPriceContext(100, originalPrice)
+	fmt.Printf("当前商品价格: %+v\n", productPriceContext.GetProductPrice())
+
+	//3.调整为打折模式
+	productPriceContext.SetIProductPrice(discountPrice)
+	fmt.Printf("当前商品价格: %+v\n", productPriceContext.GetProductPrice())
+
+	//4.调整为满减模式
+	productPriceContext.SetIProductPrice(fullReductionPrice)
+	fmt.Printf("当前商品价格: %+v\n", productPriceContext.GetProductPrice())
 }

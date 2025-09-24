@@ -3,6 +3,7 @@ package main
 
 import (
 	"degisn-pettern/behaivor/command"
+	"degisn-pettern/behaivor/observer"
 	"degisn-pettern/behaivor/status"
 	"degisn-pettern/behaivor/strategy"
 	"degisn-pettern/create/builder"
@@ -63,8 +64,11 @@ func main() {
 	//13.状态模式测试
 	//statusTest()
 
-	//14.命令模式测试、
+	//14.命令模式测试
 	//commandTest()
+
+	//15.观察者模式测试
+	//observerTest()
 }
 
 // 单例模式测试
@@ -352,4 +356,30 @@ func commandTest() {
 
 	//5.执行命令
 	commander.ExecuteCommands()
+}
+
+// 观察者模式测试
+func observerTest() {
+
+	//1.创建发布者
+	publisher := observer.NewPublisher()
+
+	//2.创建订阅者
+	subscriber1 := observer.NewSubscriber("马冬梅")
+	subscriber2 := observer.NewSubscriber("夏洛")
+	subscriber3 := observer.NewSubscriber("大傻春")
+
+	//3.订阅
+	publisher.AddSubscriber(subscriber1.Name, subscriber1)
+	publisher.AddSubscriber(subscriber2.Name, subscriber2)
+	publisher.AddSubscriber(subscriber3.Name, subscriber3)
+
+	//4.发布消息
+	publisher.Notify("hello world first time")
+
+	//5.大傻春取消订阅
+	publisher.RemoveSubscriber(subscriber3.Name)
+
+	//6.再次发布消息
+	publisher.Notify("hello world second time")
 }

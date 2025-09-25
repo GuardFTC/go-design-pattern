@@ -6,6 +6,7 @@ import (
 	"degisn-pettern/behaivor/observer"
 	"degisn-pettern/behaivor/status"
 	"degisn-pettern/behaivor/strategy"
+	"degisn-pettern/behaivor/visitor"
 	"degisn-pettern/create/builder"
 	"degisn-pettern/create/factory"
 	"degisn-pettern/create/prototype"
@@ -69,6 +70,9 @@ func main() {
 
 	//15.观察者模式测试
 	//observerTest()
+
+	//16.访问者模式测
+	//visitorTest()
 }
 
 // 单例模式测试
@@ -382,4 +386,37 @@ func observerTest() {
 
 	//6.再次发布消息
 	publisher.Notify("hello world second time")
+}
+
+// 访问者模式测试
+func visitorTest() {
+
+	//1.创建5个位置（元素）
+	pg := visitor.PG{}
+	sg := visitor.SG{}
+	sf := visitor.SF{}
+	pf := visitor.PF{}
+	c := visitor.C{}
+
+	//2.创建访问者
+	bodyTrain := visitor.BodyTrain{}
+	shootTrain := visitor.ShootTrain{}
+	skillTrain := visitor.SkillTrain{}
+
+	//3.访问元素，进行功能扩展
+	pg.Accept(&bodyTrain)
+	pg.Accept(&shootTrain)
+	pg.Accept(&skillTrain)
+	sg.Accept(&bodyTrain)
+	sg.Accept(&shootTrain)
+	sg.Accept(&skillTrain)
+	sf.Accept(&bodyTrain)
+	sf.Accept(&shootTrain)
+	sf.Accept(&skillTrain)
+	pf.Accept(&bodyTrain)
+	pf.Accept(&shootTrain)
+	pf.Accept(&skillTrain)
+	c.Accept(&bodyTrain)
+	c.Accept(&shootTrain)
+	c.Accept(&skillTrain)
 }

@@ -3,6 +3,7 @@ package main
 
 import (
 	"degisn-pettern/behaivor/command"
+	"degisn-pettern/behaivor/mediator"
 	"degisn-pettern/behaivor/observer"
 	"degisn-pettern/behaivor/status"
 	"degisn-pettern/behaivor/strategy"
@@ -71,8 +72,11 @@ func main() {
 	//15.观察者模式测试
 	//observerTest()
 
-	//16.访问者模式测
+	//16.访问者模式测试
 	//visitorTest()
+
+	//17.中介者模式测试
+	//mediatorTest()
 }
 
 // 单例模式测试
@@ -419,4 +423,25 @@ func visitorTest() {
 	c.Accept(&bodyTrain)
 	c.Accept(&shootTrain)
 	c.Accept(&skillTrain)
+}
+
+// 中介者模式测试
+func mediatorTest() {
+
+	//1.创建媒婆(中介者)
+	matchmaker := mediator.NewMatchmaker()
+
+	//2.创建男孩女孩(同事类)
+	boy := mediator.NewBoy(matchmaker)
+	girl := mediator.NewGirl(matchmaker)
+
+	//3.中介者设置男孩女孩
+	matchmaker.SetBoy(boy)
+	matchmaker.SetGirl(girl)
+
+	//4.男孩找相亲
+	boy.FindGirl()
+
+	//5.女孩找相亲
+	girl.FindBoy()
 }

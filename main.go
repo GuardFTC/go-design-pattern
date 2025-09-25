@@ -2,6 +2,7 @@
 package main
 
 import (
+	"degisn-pettern/behaivor/chain"
 	"degisn-pettern/behaivor/command"
 	"degisn-pettern/behaivor/mediator"
 	"degisn-pettern/behaivor/observer"
@@ -77,6 +78,22 @@ func main() {
 
 	//17.中介者模式测试
 	//mediatorTest()
+
+	//18.责任链模式测试
+	//chainTestV1()
+
+	//1.创建校验节点
+	lastNode := chain.NewCheckNode(chain.NewDivisibleBy4NodeV2())
+	secondNode := chain.NewCheckNode(chain.NewDivisibleBy10NodeV2())
+	firstNode := chain.NewCheckNode(chain.NewGreaterThan0NodeV2())
+	firstNode.SetNextNode(secondNode)
+	secondNode.SetNextNode(lastNode)
+
+	//2.校验数据
+	fmt.Printf("check number: %v result is %v\n", -1, firstNode.CheckNumberV2(-1))
+	fmt.Printf("check number: %v result is %v\n", 3, firstNode.CheckNumberV2(3))
+	fmt.Printf("check number: %v result is %v\n", 30, firstNode.CheckNumberV2(30))
+	fmt.Printf("check number: %v result is %v\n", 40, firstNode.CheckNumberV2(40))
 }
 
 // 单例模式测试
@@ -444,4 +461,22 @@ func mediatorTest() {
 
 	//5.女孩找相亲
 	girl.FindBoy()
+}
+
+// 责任链模式测试-(过滤器链)
+func chainTestV1() {
+
+	//1.创建节点
+	greaterThan0Node := chain.NewGreaterThan0Node()
+	divisibleBy10Node := chain.NewDivisibleBy10Node()
+	divisibleBy4Node := chain.NewDivisibleBy4Node()
+
+	//2.创建责任链
+	verifyChain := chain.NewVerifyChain(greaterThan0Node, divisibleBy10Node, divisibleBy4Node)
+
+	//3.校验数字
+	fmt.Printf("check number: %v result is %v\n", -1, verifyChain.CheckNumber(-1))
+	fmt.Printf("check number: %v result is %v\n", 3, verifyChain.CheckNumber(3))
+	fmt.Printf("check number: %v result is %v\n", 30, verifyChain.CheckNumber(30))
+	fmt.Printf("check number: %v result is %v\n", 40, verifyChain.CheckNumber(40))
 }

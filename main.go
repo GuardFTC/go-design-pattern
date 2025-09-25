@@ -81,19 +81,7 @@ func main() {
 
 	//18.责任链模式测试
 	//chainTestV1()
-
-	//1.创建校验节点
-	lastNode := chain.NewCheckNode(chain.NewDivisibleBy4NodeV2())
-	secondNode := chain.NewCheckNode(chain.NewDivisibleBy10NodeV2())
-	firstNode := chain.NewCheckNode(chain.NewGreaterThan0NodeV2())
-	firstNode.SetNextNode(secondNode)
-	secondNode.SetNextNode(lastNode)
-
-	//2.校验数据
-	fmt.Printf("check number: %v result is %v\n", -1, firstNode.CheckNumberV2(-1))
-	fmt.Printf("check number: %v result is %v\n", 3, firstNode.CheckNumberV2(3))
-	fmt.Printf("check number: %v result is %v\n", 30, firstNode.CheckNumberV2(30))
-	fmt.Printf("check number: %v result is %v\n", 40, firstNode.CheckNumberV2(40))
+	//chainTestV2()
 }
 
 // 单例模式测试
@@ -479,4 +467,20 @@ func chainTestV1() {
 	fmt.Printf("check number: %v result is %v\n", 3, verifyChain.CheckNumber(3))
 	fmt.Printf("check number: %v result is %v\n", 30, verifyChain.CheckNumber(30))
 	fmt.Printf("check number: %v result is %v\n", 40, verifyChain.CheckNumber(40))
+}
+
+// 责任链模式测试(标准责任链)
+func chainTestV2() {
+	//1.创建校验节点
+	lastNode := chain.NewCheckNode(chain.NewDivisibleBy4NodeV2())
+	secondNode := chain.NewCheckNode(chain.NewDivisibleBy10NodeV2())
+	firstNode := chain.NewCheckNode(chain.NewGreaterThan0NodeV2())
+	firstNode.SetNextNode(secondNode)
+	secondNode.SetNextNode(lastNode)
+
+	//2.校验数据
+	fmt.Printf("check number: %v result is %v\n", -1, firstNode.CheckNumberV2(-1))
+	fmt.Printf("check number: %v result is %v\n", 3, firstNode.CheckNumberV2(3))
+	fmt.Printf("check number: %v result is %v\n", 30, firstNode.CheckNumberV2(30))
+	fmt.Printf("check number: %v result is %v\n", 40, firstNode.CheckNumberV2(40))
 }

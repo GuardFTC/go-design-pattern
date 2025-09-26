@@ -4,6 +4,7 @@ package main
 import (
 	"degisn-pettern/behaivor/chain"
 	"degisn-pettern/behaivor/command"
+	"degisn-pettern/behaivor/iterator"
 	"degisn-pettern/behaivor/mediator"
 	"degisn-pettern/behaivor/memento"
 	"degisn-pettern/behaivor/observer"
@@ -90,6 +91,9 @@ func main() {
 
 	//20.模版方式模式测试
 	//templateMethodTest()
+
+	//21.迭代器模式测试
+	//iteratorTest()
 }
 
 // 单例模式测试
@@ -534,4 +538,39 @@ func templateMethodTest() {
 	//2.创建南方厨师，制作豆腐脑
 	southCooker := template_method.NewSouthCooker()
 	southCooker.MakeTofuPudding()
+}
+
+// 迭代器模式测试
+func iteratorTest() {
+
+	//1.创建歌单切片
+	songs := []*iterator.Song{
+		iterator.NewSong("枫"),
+		iterator.NewSong("蒲公英的约定"),
+		iterator.NewSong("孤单心事"),
+	}
+
+	//2.创建正序歌单
+	fmt.Printf("正序歌单：\n")
+	songCollection := iterator.NewAscSongCollection(songs)
+
+	//3.获取正序迭代器
+	songIterator := songCollection.GetSongIterator()
+
+	//4.播放歌曲
+	for songIterator.HasNext() {
+		songIterator.Next().Play()
+	}
+
+	//5.获取倒序歌单
+	fmt.Printf("倒序歌单：\n")
+	songCollection = iterator.NewDescSongCollection(songs)
+
+	//6.获取倒序迭代器
+	songIterator = songCollection.GetSongIterator()
+
+	//7.播放歌曲
+	for songIterator.HasNext() {
+		songIterator.Next().Play()
+	}
 }

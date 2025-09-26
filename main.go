@@ -144,6 +144,16 @@ func factoryPatternTest() {
 	factory3 := new(factory.ProductFactory3)
 	product3 = factory3.CreateProduct()
 	fmt.Printf("product3 name: %s\n", product3.GetName())
+
+	//3.抽象工厂模式
+	carFactory := factory.NewBMWCarFactory()
+	carFactory.CreateCar().Run()
+	carFactory.CreateEngine().Start()
+	carFactory.CreateTire().DisplayTread()
+	carFactory = factory.NewAudiCarFactory()
+	carFactory.CreateCar().Run()
+	carFactory.CreateEngine().Start()
+	carFactory.CreateTire().DisplayTread()
 }
 
 // 建造者模式测试

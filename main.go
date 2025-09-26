@@ -5,6 +5,7 @@ import (
 	"degisn-pettern/behaivor/chain"
 	"degisn-pettern/behaivor/command"
 	"degisn-pettern/behaivor/mediator"
+	"degisn-pettern/behaivor/memento"
 	"degisn-pettern/behaivor/observer"
 	"degisn-pettern/behaivor/status"
 	"degisn-pettern/behaivor/strategy"
@@ -82,6 +83,9 @@ func main() {
 	//18.责任链模式测试
 	//chainTestV1()
 	//chainTestV2()
+
+	//19.备忘录模式测试
+	//mementoTest()
 }
 
 // 单例模式测试
@@ -483,4 +487,35 @@ func chainTestV2() {
 	fmt.Printf("check number: %v result is %v\n", 3, firstNode.CheckNumberV2(3))
 	fmt.Printf("check number: %v result is %v\n", 30, firstNode.CheckNumberV2(30))
 	fmt.Printf("check number: %v result is %v\n", 40, firstNode.CheckNumberV2(40))
+}
+
+// 备忘录模式测试
+func mementoTest() {
+
+	//1.创建位置管理器
+	locationMementoManager := memento.NewLocationMementoManager()
+
+	//2.创建艾克
+	ike := memento.NewIke()
+	ike.ShowLocation()
+	locationMementoManager.SetMemento(0, ike.CreateLocationMemento())
+
+	//3.移动到上路
+	ike.Move("上路")
+	ike.ShowLocation()
+	locationMementoManager.SetMemento(1, ike.CreateLocationMemento())
+
+	//4.移动到中路
+	ike.Move("中路")
+	ike.ShowLocation()
+	locationMementoManager.SetMemento(2, ike.CreateLocationMemento())
+
+	//5.移动到下路
+	ike.Move("下路")
+	ike.ShowLocation()
+	locationMementoManager.SetMemento(3, ike.CreateLocationMemento())
+
+	//6.恢复到中路
+	ike.RestoreLocation(locationMementoManager.GetMemento(2))
+	ike.ShowLocation()
 }

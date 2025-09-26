@@ -9,6 +9,7 @@ import (
 	"degisn-pettern/behaivor/observer"
 	"degisn-pettern/behaivor/status"
 	"degisn-pettern/behaivor/strategy"
+	"degisn-pettern/behaivor/template_method"
 	"degisn-pettern/behaivor/visitor"
 	"degisn-pettern/create/builder"
 	"degisn-pettern/create/factory"
@@ -86,6 +87,9 @@ func main() {
 
 	//19.备忘录模式测试
 	//mementoTest()
+
+	//20.模版方式模式测试
+	//templateMethodTest()
 }
 
 // 单例模式测试
@@ -518,4 +522,16 @@ func mementoTest() {
 	//6.恢复到中路
 	ike.RestoreLocation(locationMementoManager.GetMemento(2))
 	ike.ShowLocation()
+}
+
+// 模版方式模式测试
+func templateMethodTest() {
+
+	//1.创建北方厨师，制作豆腐脑
+	northCooker := template_method.NewNorthCooker()
+	northCooker.MakeTofuPudding()
+
+	//2.创建南方厨师，制作豆腐脑
+	southCooker := template_method.NewSouthCooker()
+	southCooker.MakeTofuPudding()
 }

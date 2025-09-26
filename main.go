@@ -4,6 +4,7 @@ package main
 import (
 	"degisn-pettern/behaivor/chain"
 	"degisn-pettern/behaivor/command"
+	"degisn-pettern/behaivor/expression"
 	"degisn-pettern/behaivor/iterator"
 	"degisn-pettern/behaivor/mediator"
 	"degisn-pettern/behaivor/memento"
@@ -94,6 +95,9 @@ func main() {
 
 	//21.迭代器模式测试
 	//iteratorTest()
+
+	//22.解释器模式测试
+	//expressionTest()
 }
 
 // 单例模式测试
@@ -573,4 +577,42 @@ func iteratorTest() {
 	for songIterator.HasNext() {
 		songIterator.Next().Play()
 	}
+}
+
+// 解释器模式测试
+func expressionTest() {
+
+	//1.搭建最终解释器，解释公式为:(20+5)*2-100/4+x-y
+	//x=10
+	//y=20
+	//最终结果=15
+	finalExpression := expression.NewAddExpression(
+		expression.NewSubExpression(
+			expression.NewMulExpression(
+				expression.NewBracketExpression(
+					expression.NewAddExpression(
+						expression.NewNumberExpression(20),
+						expression.NewNumberExpression(5),
+					),
+				),
+				expression.NewNumberExpression(2),
+			),
+			expression.NewDivExpression(
+				expression.NewNumberExpression(100),
+				expression.NewNumberExpression(4),
+			),
+		),
+		expression.NewSubExpression(
+			expression.NewVariableExpression("x"),
+			expression.NewVariableExpression("y"),
+		),
+	)
+
+	//2.创建上下文
+	context := expression.NewContext()
+	context.SetVariable("x", 10)
+	context.SetVariable("y", 20)
+
+	//3.计算
+	fmt.Println(finalExpression.Interpret(context))
 }
